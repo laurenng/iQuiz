@@ -7,6 +7,22 @@
 
 import UIKit
 
+var myIndex = 0;
+let category = ["Mathematics", "Marvel Super Heroes", "Science"]
+let descrip = ["add, multiply, divide, and fun", "zap an de doo da! Iron Man is my favorite", "physics is confusing, hope you have fun"]
+let short_cat = ["math", "marvel", "sci"]
+let questions: [String: Any] = [
+    "math1Q": "What is 2 + 2?",
+    "math1O" : ["4", "2", "0", "10"],
+    "math1A" : "4",
+    "marvel1Q": "Who is not an Avenger?",
+    "marvel1O" : ["Captain  America", "IronMan", "Batman", "Hulk"],
+    "marvel1A" : "Batman",
+    "sci1Q": "What is the scientific term for your fingers",
+    "sci1O" : ["thumb", "phalanges", "fingy", "hand"],
+    "sci1A" : "phalanges"
+]
+
 class ViewController: UIViewController, UITableViewDelegate {
     
     let data = categorySource()
@@ -38,10 +54,14 @@ class ViewController: UIViewController, UITableViewDelegate {
         return 100.0
     }
     
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        myIndex = indexPath.row
+        performSegue(withIdentifier: "segue", sender: self)
+        return indexPath
+    }
+    
 }
 class categorySource: NSObject, UITableViewDataSource {
-    let category = ["Mathematics", "Marvel Super Heroes", "Science"]
-    let descrip = ["add, multiply, divide, and fun", "zap an de doo da! Iron Man is my favorite", "physics is confusing, hope you have fun"]
     static let CELL_STYLE = "BasicStyle"
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,6 +75,7 @@ class categorySource: NSObject, UITableViewDataSource {
         cell.textLabel?.text = category[indexPath.row]
         cell.detailTextLabel?.text = descrip[indexPath.row]
         cell.imageView?.image = UIImage(named: category[indexPath.row])
+        
         return cell
     }
     

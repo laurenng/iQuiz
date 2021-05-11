@@ -15,6 +15,8 @@
 		DB1B169F26436E6E00CBFD92 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB1B169D26436E6E00CBFD92 /* LaunchScreen.storyboard */; };
 		DB1B16AA26436E6F00CBFD92 /* iQuizTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1B16A926436E6F00CBFD92 /* iQuizTests.swift */; };
 		DB1B16B526436E6F00CBFD92 /* iQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1B16B426436E6F00CBFD92 /* iQuizUITests.swift */; };
+		DB1B16C3264A702F00CBFD92 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1B16C2264A702F00CBFD92 /* QuestionViewController.swift */; };
+		DB1B16C5264B1E0300CBFD92 /* OptionPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB1B16C4264B1E0300CBFD92 /* OptionPanel.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		DB1B16B026436E6F00CBFD92 /* iQuizUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iQuizUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB1B16B426436E6F00CBFD92 /* iQuizUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iQuizUITests.swift; sourceTree = "<group>"; };
 		DB1B16B626436E6F00CBFD92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB1B16C2264A702F00CBFD92 /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestionViewController.swift; path = ../../../QuestionViewController.swift; sourceTree = "<group>"; };
+		DB1B16C4264B1E0300CBFD92 /* OptionPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionPanel.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +106,9 @@
 				DB1B169226436E6A00CBFD92 /* AppDelegate.swift */,
 				DB1B169426436E6A00CBFD92 /* SceneDelegate.swift */,
 				DB1B169626436E6A00CBFD92 /* ViewController.swift */,
+				DB1B16C4264B1E0300CBFD92 /* OptionPanel.xib */,
 				DB1B169826436E6A00CBFD92 /* Main.storyboard */,
+				DB1B16C2264A702F00CBFD92 /* QuestionViewController.swift */,
 				DB1B169B26436E6E00CBFD92 /* Assets.xcassets */,
 				DB1B169D26436E6E00CBFD92 /* LaunchScreen.storyboard */,
 				DB1B16A026436E6E00CBFD92 /* Info.plist */,
@@ -232,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB1B169F26436E6E00CBFD92 /* LaunchScreen.storyboard in Resources */,
+				DB1B16C5264B1E0300CBFD92 /* OptionPanel.xib in Resources */,
 				DB1B169C26436E6E00CBFD92 /* Assets.xcassets in Resources */,
 				DB1B169A26436E6A00CBFD92 /* Main.storyboard in Resources */,
 			);
@@ -260,6 +267,7 @@
 			files = (
 				DB1B169726436E6A00CBFD92 /* ViewController.swift in Sources */,
 				DB1B169326436E6A00CBFD92 /* AppDelegate.swift in Sources */,
+				DB1B16C3264A702F00CBFD92 /* QuestionViewController.swift in Sources */,
 				DB1B169526436E6A00CBFD92 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
