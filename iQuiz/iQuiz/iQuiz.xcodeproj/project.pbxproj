@@ -15,8 +15,10 @@
 		DB1B169F26436E6E00CBFD92 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB1B169D26436E6E00CBFD92 /* LaunchScreen.storyboard */; };
 		DB1B16AA26436E6F00CBFD92 /* iQuizTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1B16A926436E6F00CBFD92 /* iQuizTests.swift */; };
 		DB1B16B526436E6F00CBFD92 /* iQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1B16B426436E6F00CBFD92 /* iQuizUITests.swift */; };
-		DB1B16C3264A702F00CBFD92 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1B16C2264A702F00CBFD92 /* QuestionViewController.swift */; };
 		DB1B16C5264B1E0300CBFD92 /* OptionPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB1B16C4264B1E0300CBFD92 /* OptionPanel.xib */; };
+		DB1B16C7264B3B7400CBFD92 /* FinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1B16C6264B3B7300CBFD92 /* FinishViewController.swift */; };
+		DB85142626547000006F84DE /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85142526547000006F84DE /* QuestionViewController.swift */; };
+		DBE90BD7264B44EE0060AE39 /* AnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE90BD6264B44EE0060AE39 /* AnswerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +53,10 @@
 		DB1B16B026436E6F00CBFD92 /* iQuizUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iQuizUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB1B16B426436E6F00CBFD92 /* iQuizUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iQuizUITests.swift; sourceTree = "<group>"; };
 		DB1B16B626436E6F00CBFD92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DB1B16C2264A702F00CBFD92 /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestionViewController.swift; path = ../../../QuestionViewController.swift; sourceTree = "<group>"; };
 		DB1B16C4264B1E0300CBFD92 /* OptionPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionPanel.xib; sourceTree = "<group>"; };
+		DB1B16C6264B3B7300CBFD92 /* FinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishViewController.swift; sourceTree = "<group>"; };
+		DB85142526547000006F84DE /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
+		DBE90BD6264B44EE0060AE39 /* AnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,12 +107,14 @@
 		DB1B169126436E6A00CBFD92 /* iQuiz */ = {
 			isa = PBXGroup;
 			children = (
+				DB1B16C6264B3B7300CBFD92 /* FinishViewController.swift */,
+				DBE90BD6264B44EE0060AE39 /* AnswerViewController.swift */,
 				DB1B169226436E6A00CBFD92 /* AppDelegate.swift */,
 				DB1B169426436E6A00CBFD92 /* SceneDelegate.swift */,
 				DB1B169626436E6A00CBFD92 /* ViewController.swift */,
+				DB85142526547000006F84DE /* QuestionViewController.swift */,
 				DB1B16C4264B1E0300CBFD92 /* OptionPanel.xib */,
 				DB1B169826436E6A00CBFD92 /* Main.storyboard */,
-				DB1B16C2264A702F00CBFD92 /* QuestionViewController.swift */,
 				DB1B169B26436E6E00CBFD92 /* Assets.xcassets */,
 				DB1B169D26436E6E00CBFD92 /* LaunchScreen.storyboard */,
 				DB1B16A026436E6E00CBFD92 /* Info.plist */,
@@ -265,9 +271,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBE90BD7264B44EE0060AE39 /* AnswerViewController.swift in Sources */,
+				DB1B16C7264B3B7400CBFD92 /* FinishViewController.swift in Sources */,
+				DB85142626547000006F84DE /* QuestionViewController.swift in Sources */,
 				DB1B169726436E6A00CBFD92 /* ViewController.swift in Sources */,
 				DB1B169326436E6A00CBFD92 /* AppDelegate.swift in Sources */,
-				DB1B16C3264A702F00CBFD92 /* QuestionViewController.swift in Sources */,
 				DB1B169526436E6A00CBFD92 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
