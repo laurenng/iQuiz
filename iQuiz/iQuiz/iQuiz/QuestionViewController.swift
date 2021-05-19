@@ -31,6 +31,32 @@ class QuestionViewController: UIViewController {
         O3.text = questionData.option3
         O4.text = questionData.option4
         // Do any additional setup after loading the view.
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.left
+            self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeLeft)
+    }
+    
+    @IBAction func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+
+            case UISwipeGestureRecognizer.Direction.left:
+                //change view controllers
+                let vc = storyboard?.instantiateViewController(withIdentifier: "answer") as! AnswerViewController
+                self.show(vc, sender: self)
+            case UISwipeGestureRecognizer.Direction.right:
+                let vc = storyboard?.instantiateViewController(withIdentifier: "index") as! ViewController
+                self.show(vc, sender: self)
+            default:
+                break
+            }
+        }
     }
     
     @IBAction func selectedButton1(_ sender: Any) {

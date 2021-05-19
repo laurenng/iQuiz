@@ -40,11 +40,46 @@ class AnswerViewController: UIViewController {
             // incremenet question index and go to question page
             directionButton.setTitle("next question", for: .normal)
         }
+        
+        // Setting swipes
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.left
+            self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeLeft)
+    }
+    
+    @IBAction func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+
+            case UISwipeGestureRecognizer.Direction.left:
+                //change view controllers
+                let numQ = fullData.questions.count - 1
+                if (questionIndex == numQ) {
+                    // go to finish page
+                    let vc = storyboard?.instantiateViewController(withIdentifier: "finish") as! FinishViewController
+                    self.show(vc, sender: self)
+                } else {
+                    // incremenet question index and go to question page
+                    questionIndex += 1
+                    let vc = storyboard?.instantiateViewController(withIdentifier: "question") as! QuestionViewController
+                    self.show(vc, sender: self)
+                }
+            case UISwipeGestureRecognizer.Direction.right:
+                let vc = storyboard?.instantiateViewController(withIdentifier: "index") as! ViewController
+                self.show(vc, sender: self)
+                
+            default:
+                break
+            }
+        }
     }
     
     @IBAction func buttonValue() {
-        NSLog(String(fullData.questions.count))
-        NSLog(String(questionIndex))
         let numQ = fullData.questions.count - 1
         if (questionIndex == numQ) {
             // go to finish page
