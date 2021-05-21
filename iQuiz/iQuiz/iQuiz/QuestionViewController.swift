@@ -22,7 +22,7 @@ class QuestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let fullData = allData[catIndex]
+        let fullData = subjectData[catIndex]
         let questionData = fullData.questions[questionIndex]
         
         question.text = questionData.question

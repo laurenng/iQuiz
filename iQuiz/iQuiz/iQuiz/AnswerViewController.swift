@@ -9,12 +9,10 @@ import UIKit
 
 class AnswerViewController: UIViewController {
 
-    let cat = short_cat[catIndex]
-    
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var correctLabel: UILabel!
     @IBOutlet weak var directionButton: UIButton!
-    let fullData = allData[catIndex]
+    let fullData = subjectData[catIndex]
     
     override func viewDidLoad() {
         super.viewDidLoad()

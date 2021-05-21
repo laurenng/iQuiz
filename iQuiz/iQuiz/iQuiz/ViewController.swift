@@ -11,31 +11,10 @@ var catIndex = 0;
 var questionIndex = 0;
 var selectedAnswer = 0;
 var sum = 0
+var subjectData : [Topic] = []
 
-let category = ["Mathematics", "Marvel Super Heroes", "Science"]
-let descrip = ["add, multiply, divide, and fun", "zap an de doo da! Iron Man is my favorite", "physics is confusing, hope you have fun"]
-let short_cat = ["math", "marvel", "sci"]
-
-var finishResponse = "empty"
-
-let allData: [Subject] = [
-    Subject(s: "Mathematics", q: [
-        Question(q: "What is 2 + 2?", a: 1, one: "4", two: "5", three: "6", four: "8"),
-        Question(q: "What is 2 + 4?", a: 3, one: "3", two: "5", three: "6", four: "8"),
-        Question(q: "What is 1?", a: 2, one: "4", two: "1", three: "6", four: "8"),
-    ], d: "Take a Math test!"),
-    Subject(s: "Marvel", q: [
-        Question(q: "Why do you suck?", a: 1, one: "33", two: "2", three: "234 ", four: "last"),
-        Question(q: "What is 2 + 4?", a: 3, one: "3", two: "5", three: "6", four: "8"),
-        Question(q: "What is 1?", a:2, one: "4", two: "1", three: "6", four: "8"),
-    ], d: "Pew Pew Pew"),
-    Subject(s: "Science", q: [
-        Question(q: "What is 2 + 2?", a:1, one: "4", two: "5", three: "6", four: "8"),
-        Question(q: "What is 2 + 4?", a: 1, one: "3", two: "5", three: "6", four: "8"),
-        Question(q: "What is 1?", a: 1, one: "4", two: "1", three: "6", four: "8"),
-    ], d: "I'm Albert Einstein")
-    
-]
+var jsonURL : String  = "http://tednewardsandbox.site44.com/questions.json"
+//var finishResponse = "empty"
 
 class Question {
     let question : String
@@ -55,7 +34,7 @@ class Question {
     }
 }
 
-class Subject {
+class Topic {
     let subject : String
     let questions : [Question]
     let desc : String
@@ -67,34 +46,29 @@ class Subject {
     }
 }
 
-let questions: [String: Any] = [
-    "math1Q": "What is 2 + 2?",
-    "math1O" : ["4", "2", "0", "10"],
-    "math1A" : "4",
-    
-    "math2Q": "What is 2 + 3?",
-    "math2O" : ["2", "5", "1", "8"],
-    "math2A" : "4",
-    
-    "marvel1Q": "Who is not an Avenger?",
-    "marvel1O" : ["Captain  America", "IronMan", "Batman", "Hulk"],
-    "marvel1A" : "Batman",
-    
-    "sci1Q": "What is the scientific term for your fingers",
-    "sci1O" : ["thumb", "phalanges", "fingy", "hand"],
-    "sci1A" : "phalanges"
-]
-
 class ViewController: UIViewController, UITableViewDelegate {
     
     let data = categorySource()
     
     @IBAction func settingAlert(_ sender: Any) {
-        let alert = UIAlertController(title: "Settings go here", message: "will reroute later", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Use different Dataset", message: "Add URL below", preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert.addTextField(configurationHandler: configureURL)
+        
+        alert.addAction(UIAlertAction(title: "Check now", style: .default, handler: self.checkNow))
+        alert.addAction(UIAlertAction(title: "cancel", style: .default, handler: nil))
 
         self.present(alert, animated: true)
+    }
+    
+    var newurl = UITextField()
+    func configureURL(textField: UITextField!){
+            newurl = textField
+            newurl.placeholder = "URL"
+    }
+    
+    func checkNow(alert: UIAlertAction!) {
+        getData(url: newurl.text!)
     }
     
     @IBOutlet weak var tableView: UITableView!
@@ -106,10 +80,92 @@ class ViewController: UIViewController, UITableViewDelegate {
         // Do any additional setup after loading the view.
         
         tableView.delegate = self
+        
+        getData(url: jsonURL)
+        
+        
+    }
+    
+    // PULLING REMOTE DATA
+    func getData(url: String){
+        print("GETTING NEW DATA")
+        print(url)
+        let thisURL = URL(string: url)
+        
+        guard URL(string: url) != nil else{
+            let alerts = UIAlertController(title: "Alert!", message: "Invalid URL!", preferredStyle: .alert)
+            alerts.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alerts, animated: true)
+            return
+        }
+
+        
+        if(thisURL != nil){
+            // emptying data
+            subjectData = []
+            
+            DispatchQueue.global().async {
+                URLSession.shared.dataTask(with: thisURL!) { data, response, error in
+                    guard let data = data else {return}
+                    if error != nil {
+                        let alerts = UIAlertController(title: "Alert!", message: "No Network!", preferredStyle: .alert)
+                        alerts.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                        self.present(alerts, animated: true)
+                        return
+                    }
+                    do{
+                        let questions = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                        for topics in (questions as! Array<Any>){
+                            
+                            // general topic title, description and settong question array
+                            let titles = (topics as! Dictionary<String, Any>)["title"]!
+                            let desc = (topics as! Dictionary<String, Any>)["desc"]!
+                            var questArr : [Question] = []
+                            
+                            // iterating through questions
+                            let ques = (topics as! Dictionary<String, Any>)["questions"]!
+                            for questionDetails in (ques as! Array<Any>){
+                                
+                                // defining question name and answer
+                                let questionName : String = (questionDetails as! Dictionary<String, Any>)["text"]! as! String
+                                let questionAnswer : Int = Int((questionDetails as! Dictionary<String, Any>)["answer"]! as! String)!
+                                
+                                // setting options
+                                let options = (questionDetails as! Dictionary<String, Any>)["answers"]!
+                                let o1 = (options as! Array<Any>)[0] as! String
+                                let o2 = (options as! Array<Any>)[1] as! String
+                                let o3 = (options as! Array<Any>)[2] as! String
+                                let o4 = (options as! Array<Any>)[3] as! String
+                                
+                                // appending question obj into questArr
+                                let newQuest = Question(q: questionName, a: questionAnswer, one: o1, two: o2, three: o3, four: o4)
+                                questArr.append(newQuest)
+                            }
+                            subjectData.append(Topic(s: titles as! String, q: questArr , d: desc as! String))
+                        }
+                    }catch {
+                        let alerts = UIAlertController(title: "Alert!", message: "Try again later!", preferredStyle: .alert)
+                        alerts.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                        self.present(alerts, animated: true)
+                    }
+                }.resume()
+                
+            }
+            
+            Thread.sleep(forTimeInterval: 0.1)
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        } else {
+            let alerts = UIAlertController(title: "Alert!", message: "Please enter a url", preferredStyle: .alert)
+            alerts.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alerts, animated: true)
+        }
+            
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
-        NSLog("heello sir")
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) ->CGFloat {
@@ -128,15 +184,15 @@ class categorySource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return category.count
+        return subjectData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: categorySource.CELL_STYLE, for: indexPath)
         
-        cell.textLabel?.text = category[indexPath.row]
-        cell.detailTextLabel?.text = descrip[indexPath.row]
-        cell.imageView?.image = UIImage(named: category[indexPath.row])
+        cell.textLabel?.text = subjectData[indexPath.row].subject
+        cell.detailTextLabel?.text = subjectData[indexPath.row].desc
+        cell.imageView?.image = UIImage(named: subjectData[indexPath.row].subject)
         
         return cell
     }
