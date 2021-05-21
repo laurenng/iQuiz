@@ -49,7 +49,37 @@ class Topic {
 class ViewController: UIViewController, UITableViewDelegate {
     
     let data = categorySource()
+    private let refreshControl = UIRefreshControl()
+    var newurl = UITextField()
+    @IBOutlet weak var tableView: UITableView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // wiring up table with data
+        
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+        
+        // Configure Refresh Control
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
+        refreshControl.attributedTitle = NSAttributedString(string: "Fetching quiz Data ...")
+        
+        tableView.dataSource = data
+        tableView.delegate = self
+        
+        getData(url: jsonURL)
+    }
+    
+    @objc private func refreshData(_ sender: Any) {
+        // Fetch Weather Data
+        getData(url: jsonURL)
+    }
+    
+    // settings and text configurations
     @IBAction func settingAlert(_ sender: Any) {
         let alert = UIAlertController(title: "Use different Dataset", message: "Add URL below", preferredStyle: .alert)
 
@@ -61,29 +91,14 @@ class ViewController: UIViewController, UITableViewDelegate {
         self.present(alert, animated: true)
     }
     
-    var newurl = UITextField()
     func configureURL(textField: UITextField!){
-            newurl = textField
-            newurl.placeholder = "URL"
+        newurl = textField
+        newurl.placeholder = "URL"
+        jsonURL = newurl.text!
     }
     
     func checkNow(alert: UIAlertAction!) {
         getData(url: newurl.text!)
-    }
-    
-    @IBOutlet weak var tableView: UITableView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // wiring up table with data
-        tableView.dataSource = data
-        // Do any additional setup after loading the view.
-        
-        tableView.delegate = self
-        
-        getData(url: jsonURL)
-        
-        
     }
     
     // PULLING REMOTE DATA
@@ -156,6 +171,7 @@ class ViewController: UIViewController, UITableViewDelegate {
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
             }
         } else {
             let alerts = UIAlertController(title: "Alert!", message: "Please enter a url", preferredStyle: .alert)
@@ -165,6 +181,7 @@ class ViewController: UIViewController, UITableViewDelegate {
             
     }
     
+    // table view edits
     func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
     }
     
