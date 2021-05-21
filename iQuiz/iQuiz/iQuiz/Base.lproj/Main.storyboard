@@ -53,16 +53,25 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ba-i7-aCV">
+                                <rect key="frame" x="312" y="0.0" width="82" height="30"/>
+                                <state key="normal" title="Show Score"/>
+                                <connections>
+                                    <action selector="showPopoverWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hn4-9b-Tlw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gBh-E3-6Mh" secondAttribute="bottom" constant="40" id="8PW-bU-uyg"/>
+                            <constraint firstItem="9Ba-i7-aCV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="9wo-xP-tAn"/>
                             <constraint firstItem="RsO-6y-uYf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Ugh-Go-aIT"/>
                             <constraint firstItem="gBh-E3-6Mh" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="bpe-RR-tNT"/>
                             <constraint firstItem="gBh-E3-6Mh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="gbN-em-iQN"/>
                             <constraint firstItem="gBh-E3-6Mh" firstAttribute="top" secondItem="RsO-6y-uYf" secondAttribute="bottom" constant="8" id="iDI-C8-PBy"/>
                             <constraint firstItem="RsO-6y-uYf" firstAttribute="centerX" secondItem="gBh-E3-6Mh" secondAttribute="centerX" id="kGu-ne-VQO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9Ba-i7-aCV" secondAttribute="trailing" constant="20" id="mnk-QV-685"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="160-8Y-jSB"/>

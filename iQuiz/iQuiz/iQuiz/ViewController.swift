@@ -46,7 +46,7 @@ class Topic {
     }
 }
 
-class ViewController: UIViewController, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
     
     let data = categorySource()
     private let refreshControl = UIRefreshControl()
@@ -74,6 +74,34 @@ class ViewController: UIViewController, UITableViewDelegate {
         getData(url: jsonURL)
     }
     
+    @IBAction func showPopover(sender: AnyObject) {
+        print("SHOWING POPOVER")
+        var popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "index")
+
+        popoverContent?.modalPresentationStyle = .popover
+        var popover = popoverContent?.popoverPresentationController
+
+        if let popover = popoverContent?.popoverPresentationController {
+
+           let viewForSource = sender as! UIView
+           popover.sourceView = viewForSource
+
+           // the position of the popover where it's showed
+           popover.sourceRect = viewForSource.bounds
+
+           // the size you want to display
+            popoverContent?.preferredContentSize = CGSize(width: 200,height: 500)
+           popover.delegate = self
+        }
+
+        self.present(popoverContent!, animated: true, completion: nil)
+    }
+
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    // refresh data
     @objc private func refreshData(_ sender: Any) {
         // Fetch Weather Data
         getData(url: jsonURL)
